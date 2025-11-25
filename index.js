@@ -9,11 +9,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Initialize Supabase Client
-// REPLACE THESE WITH YOUR VALUES FROM SUPABASE
-const supabaseUrl = process.env.SUPABASE_URL || 'https://xxxxx.supabase.co';
-const supabaseKey = process.env.SUPABASE_ANON_KEY || 'your-anon-key';
-const supabase = createClient(supabaseUrl, supabaseKey);
+
+const SUPABASE_URL = process.env.SUPABASE_URL || 'https://joarjohffyqadnmrhqoo.supabase.co';
+const SUPABASE_KEY = process.env.SUPABASE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvYXJqb2hmZnlxYWRubXJocW9vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM5NjU0NDgsImV4cCI6MjA3OTU0MTQ0OH0.THYJwFVEd5Am9d15Z0njuiADW0aeJv4ViWaQN18oOq0';
+
+
+// Stop server if env vaiables are missing
+if (!SUPABASE_URL || !SUPABASE_KEY) {
+  console.error('❌ Missing Supabase environment variables. Please set SUPABASE_URL and SUPABASE_KEY.');
+  process.exit(1);
+}
+
 
 // Health check endpoint
 app.get('/', (req, res) => {
